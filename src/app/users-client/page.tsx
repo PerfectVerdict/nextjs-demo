@@ -1,4 +1,11 @@
 "use client"
+// Server side fetching is preffered. We have to handle error and loading state mangually with client-side
+// With server side next handles it via file structure.
+// Use client-side when you need real time updates or when you the data depends on client side interaction
+
+// Server side are async functions that are executed on the server
+// they allow us to define and execude server side login directly from our components
+//  handling form submisions, updating our database, anything that requires server side execution
 import { useState, useEffect } from "react";
 
 type Users = {
@@ -37,7 +44,6 @@ export default function UsersClient() {
 
     if (loading) return <div>Loading...</div>
         if (error) return <div>{error}</div>
-    
     return (
         <ul className="space-y-4 p-4">
         {users.map((user) => (
@@ -47,8 +53,6 @@ export default function UsersClient() {
                 >
                 {user.name} ({user.email})
                 </li>
-
-            
         ))}
         </ul>
     )
