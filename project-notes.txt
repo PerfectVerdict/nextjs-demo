@@ -1,0 +1,8 @@
+Auth:
+1. Sign up
+2. Sign in
+3. Manage account
+4. Show UI elements based on auth status
+5. Protect routes based on auth status
+6. Read session and user data
+7. Sign out.

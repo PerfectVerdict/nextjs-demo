@@ -40,7 +40,7 @@ export default function Home() {
               className="dark:invert"
               src="/vercel.svg"
               alt="Vercel logomark"
-              width={20}page
+              width={20}
               height={20}
             />
             Deploy now
@@ -63,7 +63,7 @@ export default function Home() {
           rel="noopener noreferrer"
 
         >
-          <mage
+          <Image
             aria-hidden
             src="/file.svg"
             alt="File icon"
