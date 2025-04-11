@@ -21,6 +21,7 @@ export default async function UsersServer() {
 
     async function addUser(formData: FormData) {
         "use server"
+        prisma.post.findMany()
         const name = formData.get("name")
         const res = await fetch("https://67f801292466325443eb86e0.mockapi.io/users",
            {
