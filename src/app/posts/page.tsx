@@ -1,5 +1,3 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import { createPost } from "@/actions/actions";
 import { prisma } from "@/lib/db";
 import Link from "next/link";
@@ -18,8 +16,19 @@ export default async function PostsPage() {
   });
   const postsCount = await prisma.post.count();
   return (
-    <main className="flex flex-col items-center gap-y-5 pt-14 text-center">
-      {/* <h1 className="text-5xl font-semibold">All Posts: {postsCount}</h1> */}
+    <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
+      <h1 className="text-3xl font-semibold">All Posts: {postsCount}</h1>
+
+      <ul className="border-t border-b border-black/10 py-5 leading-8">
+        {posts.map((post) => (
+          <li
+            key={post.id}
+            className="flex item-center justify-center justify-between px-5"
+          >
+            <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+          </li>
+        ))}
+      </ul>
 
       {/* Form */}
       <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
@@ -31,7 +40,7 @@ export default async function PostsPage() {
         />
         <textarea
           name="content"
-          rows={2}
+          rows={5}
           placeholder="Content"
           className="px-2 py-1 rounded-sm"
         />
@@ -42,16 +51,6 @@ export default async function PostsPage() {
           Create Post
         </button>
       </form>
-      <ul className="border-t border-b border-black/10 py-5 leading-8">
-        {posts.map((post) => (
-          <li
-            key={post.id}
-            className="flex item-center justify-center justify-between px-5"
-          >
-            <Link href={`/posts/${post.slug}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
     </main>
   );
 }

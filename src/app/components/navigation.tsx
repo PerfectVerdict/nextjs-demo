@@ -1,31 +1,30 @@
-"use client"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 export const Navigation = () => {
-    const pathname = usePathname(); 
-    return (
-        <nav className="flex justify-center items-center p-4">
-           <Link href="/" className={pathname === "/" ? "font-bold mr-4" : "text-blue-500 mr-4"}>
-           home
-           </Link>
-           <Link href="/about" className={pathname === "/about" ? "font-bold mr-4" : "text-blue-500 mr-4"}>
-           about
-           </Link>
-           <Link href="/products/1"
-           className={pathname.startsWith("/products/1") ? "font-bold mr-4" : "text-blue-500 mr-4"}>
-           product 1
-           </Link>
+  const pathname = usePathname();
+  return (
+    <div className="flex flex-row justify-center items-center justify-end">
+      <h1 className="font-bold text-2xl absolute left-1/2 transform -translate-x-1/2 ">
+        Hub of Wisdom
+      </h1>
+      <nav className="flex justify-center items-center p-4">
+        <Link
+          href="/"
+          className={pathname === "/" ? "font-bold mr-4" : "text-blue-500 mr-4"}
+        >
+          home
+        </Link>
 
-           <SignedOut>
-               <SignInButton mode="modal" />
-           </SignedOut>
-            <SignedIn>
-               <UserButton />
-            </SignedIn>
-        </nav>
-    )
-}
-
-
+        <SignedOut>
+          <SignInButton mode="modal" />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </nav>
+    </div>
+  );
+};

@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// When updating this scheme update the prisma db and the prisma client
+generator client {
+  provider = "prisma-client-js"
+    // output   = "../src/generated/prisma"
+  // previewFeatures = ["libsql"] // enables libsql support!
+
+}
+
+datasource db {
+  provider = "postgresql"
+    url      = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  hashedPassword String
+  posts Post[]
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String
+  slug String @unique
+  content String
+
+  published Boolean? @default(false)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  @@index(slug)
+}
