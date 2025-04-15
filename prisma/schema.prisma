@@ -10,14 +10,15 @@ generator client {
 datasource db {
   provider = "postgresql"
     url      = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+    // directUrl = env("DIRECT_URL")
 }
 
 model User {
   id Int @id @default(autoincrement())
+  clerkId String @unique
   email String @unique
-  hashedPassword String
-  // posts Post[]
+  posts Post[]
+  createdAt DateTime @default(now())
 }
 
 model Post {
@@ -25,13 +26,11 @@ model Post {
   title String
   slug String @unique
   content String
-
   published Boolean? @default(false)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-
-  // author User? @relation(fields: [authorId], references: [id])
-  authorId Int?
+  authorClerkId String?
+  author    User?     @relation(fields: [authorClerkId], references: [clerkId])
 
   @@index(slug)
 }
