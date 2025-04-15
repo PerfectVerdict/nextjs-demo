@@ -6,15 +6,14 @@ interface PostPageProps {
     slug: string;
   };
 }
-
-const getCashedPost = cache((slug) => {
-  return prisma.post.findUnique({
-    where: {
-      slug,
-    },
-    cacheStrategy: { ttl: 60 },
-  });
-});
+// const getCashedPost = cache((slug) => {
+//   return prisma.post.findUnique({
+//     where: {
+//       slug,
+//     },
+//     cacheStrategy: { ttl: 60 },
+//   });
+// });
 
 export default async function PostPage({ params }: PostPageProps) {
   // const post = await prisma.User.findUnique({
@@ -36,7 +35,8 @@ export default async function PostPage({ params }: PostPageProps) {
   // }
 
   return (
-    <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
+    <main className="flex flex-col h-screen items-center gap-y-5 text-center">
+      <p className="text-2xl">{post.title}</p>
       <p>{post.content}</p>
     </main>
   );
