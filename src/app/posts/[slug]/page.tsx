@@ -18,7 +18,7 @@ const getCashedPost = cache((slug) => {
 
 export default async function PostPage({ params }: PostPageProps) {
   // const post = await prisma.User.findUnique({
-  const posts = await prisma.post.findMany({
+  const post = await prisma.post.findUnique({
     // options for reading specific data.
     // Including:
     // fetching by slug, and by email. If by email, you NEED to have incude {posts: true}
@@ -37,12 +37,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
-      {posts.map((post) => (
-        <article key={post.id} className="border-b pb-4 w-full max-w-xl">
-          <h1 className="text-3xl font-semibold">{post.title}</h1>
-          <p>{post.content}</p>
-        </article>
-      ))}
+      <p>{post.content}</p>
     </main>
   );
 }

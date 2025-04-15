@@ -1,7 +1,10 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 export async function createPost(formData: FormData) {
+  console.log("✅ createPost called");
+
   try {
     await prisma.post.create({
       data: {
@@ -10,13 +13,14 @@ export async function createPost(formData: FormData) {
           .replace(/\s+/g, "-")
           .toLowerCase(),
         content: formData.get("content") as string,
-        author: {
-          connect: {
-            email: "john@gmail.com",
-          },
-        },
+        // author: {
+        //   connect: {
+        //     email: "john@gmail.com",
+        //   },
+        // },
       },
     });
+    revalidatePath("/posts"); // 👈 👈 this is the fix
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {

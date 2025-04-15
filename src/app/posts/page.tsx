@@ -5,11 +5,11 @@ import Link from "next/link";
 export default async function PostsPage() {
   const posts = await prisma.post.findMany({
     // Be sure not to select sensitive info
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-    },
+    // select: {
+    //   id: true,
+    //   title: true,
+    //   slug: true,
+    // },
     orderBy: {
       createdAt: "desc",
     },

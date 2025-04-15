@@ -2,10 +2,28 @@
 import { PrismaClient } from "@prisma/client";
 
 declare global {
+  // Allow global Prisma reuse in dev (avoids too many connections)
   var prisma: PrismaClient | undefined;
 }
 
-const client = global.prisma || new PrismaClient();
-if (process.env.NODE_ENV !== "production") global.prisma = client;
+const prisma =
+  global.prisma ??
+  new PrismaClient({
+    // Explicitly set your datasource URL if needed
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL,
+      },
+    },
+    __internal: {
+      engine: {
+        env: {
+          PRISMA_DISABLE_STATEMENT_CACHE: "true",
+        },
+      },
+    },
+  });
 
-export const prisma = client;
+if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+
+export { prisma };
