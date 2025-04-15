@@ -2,9 +2,15 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { createPost } from "@/actions/actions";
 import { prisma } from "@/lib/db";
+import { currentUser } from "@clerk/nextjs/server";
+
 import Link from "next/link";
 
 export default async function PostsPage() {
+  const user = await currentUser();
+
+  console.log("👉 Clerk user:", user);
+
   const posts = await prisma.post.findMany({
     // Be sure not to select sensitive info
     select: {

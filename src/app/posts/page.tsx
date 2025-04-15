@@ -1,10 +1,16 @@
 import { createPost } from "@/actions/actions";
+import { currentUser } from "@clerk/nextjs/server";
+
 import { prisma } from "@/lib/db";
 import Link from "next/link";
-
+const user = await currentUser();
+const username = user.username;
 export default async function PostsPage() {
   const posts = await prisma.post.findMany({
     // Be sure not to select sensitive info
+    include: {
+      author: true, // 👈 this includes the related User
+    },
     // select: {
     //   id: true,
     //   title: true,
@@ -25,7 +31,11 @@ export default async function PostsPage() {
             key={post.id}
             className="flex item-center justify-center justify-between px-5"
           >
-            <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+            <Link href={`/posts/${post.slug}`}>
+              {post.content}
+              {" — "}
+              {post.author?.username || "Unknown"}
+            </Link>
           </li>
         ))}
       </ul>

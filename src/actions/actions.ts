@@ -2,11 +2,13 @@
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
-import { clerkClient, currentUser } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
+
 export async function createPost(formData: FormData) {
   console.log("✅ createPost called");
-
   const user = await currentUser();
+  const username = user?.username;
   if (!user) {
     throw new Error("Not authenticated");
   }
@@ -24,6 +26,7 @@ export async function createPost(formData: FormData) {
       data: {
         clerkId: userId,
         email: emailAddresses[0]?.emailAddress || "", // optional fallback
+        username: usernme || "", // 👈 this line adds the username
       },
     });
   }
