@@ -42,7 +42,7 @@ export async function createPost(formData: FormData) {
           .replace(/\s+/g, "-")
           .toLowerCase(),
         content: formData.get("content") as string,
-        authorClerkId: user.clerkId, // ✅ this is the link
+        authorClerkId: userId,
       },
     });
 

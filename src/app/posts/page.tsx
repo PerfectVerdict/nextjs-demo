@@ -1,19 +1,18 @@
 import { createPost } from "@/actions/actions";
-import { currentUser } from "@clerk/nextjs/server";
+import { AvatarFromUrl } from "./AvatarFromUrl"; // ✅ import this instead of UserAvatar
+
+// import { currentUser } from "@clerk/nextjs/server";
 
 import { prisma } from "@/lib/db";
 import Link from "next/link";
-const user = await currentUser();
-const username = user.username;
-const firsName = user.firstName;
-export default async function PostsPage() {
+// const user = await currentUser();
+export default async function PostsPage({ userImage }: { userImage: string }) {
   const posts = await prisma.post.findMany({
     include: {
       author: {
         select: {
-          firstname: true,
           imageUrl: true,
-          username: true,
+          // username: true,
         },
       },
       postImageFromUser: {
@@ -37,21 +36,23 @@ export default async function PostsPage() {
             key={post.id}
             className="flex item-center justify-center justify-between px-5"
           >
-            <img
-              src={post.postImageFromUser?.imageUrl}
-              alt={post.author?.firstName || ""}
-              className="w-10 h-10 rounded-full"
-            />
+            {/* <img */}
+            {/*   src={post.postImageFromUser?.imageUrl} */}
+            {/*   alt={post.author?.firstName || ""} */}
+            {/*   className="w-10 h-10 rounded-full" */}
+            {/* /> */}
             <Link href={`/posts/${post.slug}`}>
+              <AvatarFromUrl src={post.author?.imageUrl} />{" "}
+              {/* ✅ this runs client-side */}
               {post.content}
-              {" — "}
-              {post.firstname || "Unknown"}
-              {post.author?.imageUrl}
             </Link>
           </li>
         ))}
       </ul>
-
+      {posts.map((post) => {
+        console.log("AUTHOR IMAGE", post.author?.imageUrl);
+        return <li key={post.id}>...</li>;
+      })}
       {/* Form */}
       <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
         <input

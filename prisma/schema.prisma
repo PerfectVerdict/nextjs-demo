@@ -18,10 +18,10 @@ model User {
   clerkId String @unique
   email String @unique
   posts Post[] @relation("authorOfPost")
-    imagePosts Post[] @relation("imageOwner")
+  imagePosts Post[] @relation("imageOwner")
   createdAt DateTime @default(now())
   username String?
-  imageUrl  String? @unique // <-- add this field
+  imageUrl  String?
   firstname String?
 
 }
@@ -36,7 +36,7 @@ model Post {
   createdAt DateTime @default(now())
   authorClerkId String?
   author    User?     @relation("authorOfPost", fields: [authorClerkId], references: [clerkId])
-  postImage String?
-  postImageFromUser User? @relation("imageOwner", fields: [postImage], references: [imageUrl])
+  imageOwnerClerkId String?
+  postImageFromUser User? @relation("imageOwner", fields: [imageOwnerClerkId], references: [clerkId])
   @@index(slug)
 }

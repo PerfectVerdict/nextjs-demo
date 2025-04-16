@@ -30,7 +30,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden`}
         >
-          <header className="bg-sky-500 text-white p-4 text-center">
+          <header className="text-white p-4 text-center">
             <Navigation />
           </header>
           {children}
