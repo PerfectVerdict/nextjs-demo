@@ -5,17 +5,23 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 const user = await currentUser();
 const username = user.username;
+const firsName = user.firstName;
 export default async function PostsPage() {
   const posts = await prisma.post.findMany({
-    // Be sure not to select sensitive info
     include: {
-      author: true, // 👈 this includes the related User
+      author: {
+        select: {
+          firstname: true,
+          imageUrl: true,
+          username: true,
+        },
+      },
+      postImageFromUser: {
+        select: {
+          imageUrl: true,
+        },
+      },
     },
-    // select: {
-    //   id: true,
-    //   title: true,
-    //   slug: true,
-    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -31,10 +37,16 @@ export default async function PostsPage() {
             key={post.id}
             className="flex item-center justify-center justify-between px-5"
           >
+            <img
+              src={post.postImageFromUser?.imageUrl}
+              alt={post.author?.firstName || ""}
+              className="w-10 h-10 rounded-full"
+            />
             <Link href={`/posts/${post.slug}`}>
               {post.content}
               {" — "}
-              {post.author?.username || "Unknown"}
+              {post.firstname || "Unknown"}
+              {post.author?.imageUrl}
             </Link>
           </li>
         ))}

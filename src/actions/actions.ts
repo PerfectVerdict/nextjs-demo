@@ -9,6 +9,7 @@ export async function createPost(formData: FormData) {
   console.log("✅ createPost called");
   const user = await currentUser();
   const username = user?.username;
+  const firstName = user?.firstName;
   if (!user) {
     throw new Error("Not authenticated");
   }
@@ -26,7 +27,8 @@ export async function createPost(formData: FormData) {
       data: {
         clerkId: userId,
         email: emailAddresses[0]?.emailAddress || "", // optional fallback
-        username: usernme || "", // 👈 this line adds the username
+        username: username || "", // 👈 this line adds the username
+        imageUrl: user.imageUrl,
       },
     });
   }
@@ -47,7 +49,7 @@ export async function createPost(formData: FormData) {
     revalidatePath("/posts"); // optional: for static site revalidation
   } catch (error) {
     if (
-      error instanceof prisma.PrismaClientKnownRequestError &&
+      error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
       console.log(
