@@ -1,12 +1,13 @@
 import { createPost } from "@/actions/actions";
+import { currentUser } from "@clerk/nextjs/server";
+
 import { AvatarFromUrl } from "./AvatarFromUrl"; // ✅ import this instead of UserAvatar
-
-// import { currentUser } from "@clerk/nextjs/server";
-
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 // const user = await currentUser();
 export default async function PostsPage({ userImage }: { userImage: string }) {
+  const user = await currentUser(); // ✅ will be null if not signed in
+
   const posts = await prisma.post.findMany({
     include: {
       author: {
@@ -26,6 +27,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
     },
   });
   const postsCount = await prisma.post.count();
+
   return (
     <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
       <h1 className="text-3xl font-semibold">All Posts: {postsCount}</h1>
@@ -54,26 +56,31 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
         return <li key={post.id}>...</li>;
       })}
       {/* Form */}
-      <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          className="px-2 py-1 rounded-sm"
-        />
-        <textarea
-          name="content"
-          rows={5}
-          placeholder="Content"
-          className="px-2 py-1 rounded-sm"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 py-2 text-white rounded-sm"
-        >
-          Create Post
-        </button>
-      </form>
+      {user && (
+        <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            className="px-2 py-1 rounded-sm"
+          />
+          <textarea
+            name="content"
+            rows={5}
+            placeholder="Content"
+            className="px-2 py-1 rounded-sm"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 py-2 text-white rounded-sm"
+          >
+            Create Post
+          </button>
+        </form>
+      )}
+      {!user && (
+        <p className="mt-4 text-gray-500">Sign in to create a post ✍️</p>
+      )}
     </main>
   );
 }

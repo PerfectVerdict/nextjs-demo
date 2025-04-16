@@ -10,9 +10,9 @@ export async function createPost(formData: FormData) {
   const user = await currentUser();
   const username = user?.username;
   const firstName = user?.firstName;
-  if (!user) {
-    throw new Error("Not authenticated");
-  }
+  // if (!user) {
+  //   throw new Error("Not authenticated");
+  // }
 
   const { id: userId, emailAddresses } = user;
 
