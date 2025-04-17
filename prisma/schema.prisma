@@ -38,5 +38,7 @@ model Post {
   author    User?     @relation("authorOfPost", fields: [authorClerkId], references: [clerkId])
   imageOwnerClerkId String?
   postImageFromUser User? @relation("imageOwner", fields: [imageOwnerClerkId], references: [clerkId])
+  authorName    String
+  authorImage   String
   @@index(slug)
 }
