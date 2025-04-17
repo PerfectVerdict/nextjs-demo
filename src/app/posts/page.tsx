@@ -37,16 +37,23 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
 
   // TODO: handle dynamic usernames  and images from profiles.
   return (
-    <main className="min-h-screen w-full p-4">
+    <main className="min-h-screen w-full">
       <div className="max-w-6xl mx-auto">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
           {posts.map((post) => (
             <li key={post.id} className="border rounded-md text-left">
               <Link
                 href={`/posts/${post.slug}`}
-                className="flex flex-col gap-4 p-4"
+                className="flex flex-col gap-1 p-2"
               >
-                <img className="p-10" src={user.imageUrl} /> {post.content}
+                <div className="flex flex-row p-4 items-center gap-4">
+                  <img
+                    src={user.imageUrl}
+                    className="w-13 h-13 rounded-full object-cover"
+                  />{" "}
+                  <p className="text-md">{user.username}</p>
+                </div>
+                {post.content}
               </Link>
             </li>
           ))}
