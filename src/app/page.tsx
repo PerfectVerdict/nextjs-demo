@@ -36,20 +36,12 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
             key={post.id}
             className="flex item-center justify-center justify-between px-5"
           >
-            {/* <img */}
-            {/*   src={post.postImageFromUser?.imageUrl} */}
-            {/*   alt={post.author?.firstName || ""} */}
-            {/*   className="w-10 h-10 rounded-full" */}
-            {/* /> */}
             <Link href={`/posts/${post.slug}`}>
-              <AvatarFromUrl src={post.author?.imageUrl} />{" "}
-              {/* ✅ this runs client-side */}
-              {post.content}
+              <AvatarFromUrl src={post.author?.imageUrl} /> {post.content}
             </Link>
           </li>
         ))}
       </ul>
-      {/* Form */}
       {user && (
         <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
           <input
