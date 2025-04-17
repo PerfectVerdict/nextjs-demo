@@ -2,7 +2,7 @@ import { createPost } from "@/actions/actions";
 import { clerkClient } from "@clerk/nextjs/server";
 import PostCounter from "../components/PostCounter";
 import { currentUser } from "@clerk/nextjs/server";
-import { AvatarFromUrl } from "../posts/AvatarFromUrl"; // ✅ import this instead of UserAvatar
+// import { AvatarFromUrl } from "../posts/AvatarFromUrl"; // ✅ import this instead of UserAvatar
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 // const user = await currentUser();
@@ -10,19 +10,19 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const user = await currentUser(); // ✅ will be null if not signed in
 
   const posts = await prisma.post.findMany({
-    include: {
-      author: {
-        select: {
-          imageUrl: true,
-          // username: true,
-        },
-      },
-      postImageFromUser: {
-        select: {
-          imageUrl: true,
-        },
-      },
-    },
+    // include: {
+    //   author: {
+    //     select: {
+    //       imageUrl: true,
+    //       // username: true,
+    //     },
+    //   },
+    //   postImageFromUser: {
+    //     select: {
+    //       imageUrl: true,
+    //     },
+    //   },
+    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -46,8 +46,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
                 href={`/posts/${post.slug}`}
                 className="flex flex-col gap-4 p-4"
               >
-                <AvatarFromUrl className="p-10" src={post.author?.imageUrl} />{" "}
-                {post.content}
+                <img className="p-10" src={user.imageUrl} /> {post.content}
               </Link>
             </li>
           ))}
