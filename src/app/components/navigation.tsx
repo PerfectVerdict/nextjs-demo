@@ -7,20 +7,17 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
   const pathname = usePathname();
   return (
     <div className="flex flex-row items-center justify-between">
-      <h1 className="items-center font-bold text-1xl absolute left-1/2 transform -translate-x-1/2 ">
-        Hub of Wisdom
-      </h1>
-
-      <span className="justify-center items-center p-4 font-sm">
-        Posts: {postsCount}
-      </span>
+      <SignedOut>
+        <p className="text-sm text-gray-500 items-center">
+          Sign in to view life changing wisdom and create a post yourself!✍️
+        </p>
+      </SignedOut>
+      {/* <span className="justify-center items-center p-4 font-sm"> */}
+      {/*   Posts: {postsCount} */}
+      {/* </span> */}
+      <h1 className="flex-1 text-center font-bold text-xl">Hub of Wisdom</h1>
 
       <nav className="flex justify-center items-center p-4">
-        <SignedOut>
-          <p className="text-sm text-gray-500">
-            Sign in to view life changing wisdom and create a post yourself!✍️
-          </p>
-        </SignedOut>
         <SignedIn>
           <Link
             href="/posts"

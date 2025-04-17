@@ -1,5 +1,4 @@
 import { createPost } from "@/actions/actions";
-import { revalidatePath } from "next/cache";
 import { clerkClient } from "@clerk/nextjs/server";
 import PostCounter from "../components/PostCounter";
 import { currentUser } from "@clerk/nextjs/server";
@@ -50,9 +49,9 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
                 <div className="flex flex-row p-4 items-center gap-4">
                   <img
                     src={user.imageUrl}
-                    className="w-13 h-13 rounded-full object-cover"
+                    className="w-15 h-15 rounded-full object-cover"
                   />{" "}
-                  <p className="text-md">{user.username}</p>
+                  <p className="text-lg">{user.username}</p>
                 </div>
                 {post.content}
               </Link>
