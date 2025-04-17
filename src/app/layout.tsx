@@ -33,7 +33,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
         >
-          <header className="text-white p-4 text-center">
+          <header className="text-white text-center">
             <NavigationWrapper />
           </header>
           {children}

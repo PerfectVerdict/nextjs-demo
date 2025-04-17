@@ -21,41 +21,23 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   console.log(user);
   // TODO: handle dynamic usernames  and images from profiles.
   return (
-    <main className="min-h-screen w-full">
-      <div className="max-w-6xl mx-auto">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
-          {posts.map((post) => (
-            <li key={post.id} className="border rounded-md text-left">
-              <Link
-                href={`/posts/${post.slug}`}
-                className="flex flex-col gap-1 p-2"
-              >
-                <div className="flex flex-row p-4 items-center gap-4">
-                  <img
-                    src={user.imageUrl}
-                    className="w-15 h-15 rounded-full object-cover"
-                  />{" "}
-                  <p className="text-lg">{user.username}</p>
-                </div>
-                {post.content}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <main className="min-h-screen w-full flex flex-col items-center gap-2 p-4">
       {user && (
-        <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
+        <form
+          action={createPost}
+          className="flex flex-col gap-y-2 w-[300px] border p-2 rounded shadow"
+        >
           <input
             type="text"
             name="title"
             placeholder="Title"
-            className="px-2 py-1 rounded-sm"
+            className="px-2 py-1 rounded-sm border"
           />
           <textarea
             name="content"
             rows={5}
             placeholder="Content"
-            className="px-2 py-1 rounded-sm"
+            className="px-2 py-1 rounded-sm border"
           />
           <button
             type="submit"
@@ -65,6 +47,28 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
           </button>
         </form>
       )}
+
+      <div className="max-w-6xl mx-auto w-full">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
+          {posts.map((post) => (
+            <li key={post.id} className="border rounded-md text-left">
+              <Link
+                href={`/posts/${post.slug}`}
+                className="flex flex-col gap-1 p-2"
+              >
+                <div className="flex flex-row p-4 items-center gap-4">
+                  <img
+                    src={user?.imageUrl || ""}
+                    className="w-15 h-15 rounded-full object-cover"
+                  />
+                  <p className="text-lg">{user?.username}</p>
+                </div>
+                {post.content}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 }

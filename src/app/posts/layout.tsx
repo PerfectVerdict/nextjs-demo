@@ -32,7 +32,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden min-h-screen flex flex-col`}
         >
-          <header className="text-white p-4 text-center"></header>
+          <header className="text-white text-center"></header>
           {children}
         </body>
       </html>
