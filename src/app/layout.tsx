@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/navigation";
 
+const postsCount = await prisma.post.count();
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,7 +33,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden`}
         >
           <header className="text-white p-4 text-center">
-            <Navigation />
+            <Navigation postsCount={postsCount} />
           </header>
           {children}
         </body>

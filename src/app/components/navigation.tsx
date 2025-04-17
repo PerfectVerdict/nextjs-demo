@@ -3,13 +3,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
-export const Navigation = () => {
+export const Navigation = ({ postsCount }: { postsCount: number }) => {
   const pathname = usePathname();
   return (
-    <div className="flex flex-row justify-center items-center justify-end">
-      <h1 className="font-bold text-2xl absolute left-1/2 transform -translate-x-1/2 ">
+    <div className="flex flex-row items-center justify-between">
+      <h1 className="items-center font-bold text-2xl absolute left-1/2 transform -translate-x-1/2 ">
         Hub of Wisdom
       </h1>
+
+      <span className="justify-center items-center p-4">
+        Posts: {postsCount}
+      </span>
       <nav className="flex justify-center items-center p-4">
         <Link
           href="/"
