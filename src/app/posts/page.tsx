@@ -1,4 +1,5 @@
 import { createPost } from "@/actions/actions";
+import { revalidatePath } from "next/cache";
 import { clerkClient } from "@clerk/nextjs/server";
 import PostCounter from "../components/PostCounter";
 import { currentUser } from "@clerk/nextjs/server";
