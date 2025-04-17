@@ -63,9 +63,6 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
           </button>
         </form>
       )}
-      {!user && (
-        <p className="mt-4 text-gray-500">Sign in to create a post ✍️</p>
-      )}
     </main>
   );
 }
