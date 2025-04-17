@@ -4,9 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/navigation";
 import PostCounter from "./components/PostCounter";
-import { prisma } from "@/lib/db"; // or wherever your prisma client is located
 
-const postsCount = await prisma.post.count();
+import { NavigationWrapper } from "./components/Navigation-Wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +31,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden min-h-screen flex flex-col`}
         >
           <header className="text-white p-4 text-center">
-            <Navigation postsCount={postsCount} />
+            <NavigationWrapper />
           </header>
           {children}
         </body>

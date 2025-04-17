@@ -11,7 +11,7 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
         Hub of Wisdom
       </h1>
 
-      <span className="justify-center items-center p-4">
+      <span className="justify-center items-center p-4 font-semibold">
         Posts: {postsCount}
       </span>
       <nav className="flex justify-center items-center p-4">

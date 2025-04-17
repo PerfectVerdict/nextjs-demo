@@ -29,19 +29,18 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const postsCount = await prisma.post.count();
 
   return (
-    <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
-      <ul className="border-t border-b border-black/10 py-5 leading-8">
-        {posts.map((post) => (
-          <li
-            key={post.id}
-            className="flex item-center justify-center justify-between px-5"
-          >
-            <Link href={`/posts/${post.slug}`}>
-              <AvatarFromUrl src={post.author?.imageUrl} /> {post.content}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main className="min-h-screen w-full p-4">
+      <div className="max-w-6xl mx-auto">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+          {posts.map((post) => (
+            <li key={post.id} className="border rounded-md p-4 text-left">
+              <Link href={`/posts/${post.slug}`}>
+                <AvatarFromUrl src={post.author?.imageUrl} /> {post.content}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       {user && (
         <form action={createPost} className="flex flex-col gap-y-2 w-[300px]">
           <input
