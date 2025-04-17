@@ -22,34 +22,34 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   // TODO: handle dynamic usernames  and images from profiles.
   return (
     <main className="min-h-screen w-full flex flex-col items-center gap-2 p-4">
-      {user && (
-        <form
-          action={createPost}
-          className="flex flex-col gap-y-2 w-[300px] border p-2 rounded shadow"
-        >
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            className="px-2 py-1 rounded-sm border"
-          />
-          <textarea
-            name="content"
-            rows={5}
-            placeholder="Content"
-            className="px-2 py-1 rounded-sm border"
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 py-2 text-white rounded-sm"
-          >
-            Create Post
-          </button>
-        </form>
-      )}
-
       <div className="max-w-6xl mx-auto w-full">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
+          {user && (
+            <form
+              action={createPost}
+              className="flex flex-col gap-y-2 border p-2 rounded shadow"
+            >
+              <input
+                type="text"
+                name="title"
+                placeholder="Title"
+                className="px-2 py-1 rounded-sm border"
+              />
+              <textarea
+                name="content"
+                rows={3}
+                placeholder="Content"
+                className="px-2 py-1 rounded-sm border"
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 py-2 text-white rounded-sm"
+              >
+                Create Post
+              </button>
+            </form>
+          )}
+
           {posts.map((post) => (
             <li key={post.id} className="border rounded-md text-left">
               <Link
