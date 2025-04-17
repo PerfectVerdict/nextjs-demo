@@ -1,7 +1,8 @@
 import { createPost } from "@/actions/actions";
+import { clerkClient } from "@clerk/nextjs/server";
 import PostCounter from "../components/PostCounter";
 import { currentUser } from "@clerk/nextjs/server";
-import { AvatarFromUrl } from "../posts/AvatarFromUrl"; // ✅ import this instead of UserAvatar
+// import { AvatarFromUrl } from "../posts/AvatarFromUrl"; // ✅ import this instead of UserAvatar
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 // const user = await currentUser();
@@ -9,19 +10,19 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const user = await currentUser(); // ✅ will be null if not signed in
 
   const posts = await prisma.post.findMany({
-    include: {
-      author: {
-        select: {
-          imageUrl: true,
-          // username: true,
-        },
-      },
-      postImageFromUser: {
-        select: {
-          imageUrl: true,
-        },
-      },
-    },
+    // include: {
+    //   author: {
+    //     select: {
+    //       imageUrl: true,
+    //       // username: true,
+    //     },
+    //   },
+    //   postImageFromUser: {
+    //     select: {
+    //       imageUrl: true,
+    //     },
+    //   },
+    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -34,14 +35,18 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const postsCount = await prisma.post.count();
   console.log(user);
 
+  // TODO: handle dynamic usernames  and images from profiles.
   return (
     <main className="min-h-screen w-full p-4">
       <div className="max-w-6xl mx-auto">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
           {posts.map((post) => (
-            <li key={post.id} className="border rounded-md p-4 text-left">
-              <Link href={`/posts/${post.slug}`}>
-                <AvatarFromUrl src={post.author?.imageUrl} /> {post.content}
+            <li key={post.id} className="border rounded-md text-left">
+              <Link
+                href={`/posts/${post.slug}`}
+                className="flex flex-col gap-4 p-4"
+              >
+                <img className="p-10" src={user.imageUrl} /> {post.content}
               </Link>
             </li>
           ))}
