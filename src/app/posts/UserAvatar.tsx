@@ -1,3 +1,5 @@
+// Fetches the currently signed in users data and displays their profile pic. Use in client comps.
+
 "use client";
 import { useUser } from "@clerk/nextjs";
 
