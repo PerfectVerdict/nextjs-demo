@@ -1,4 +1,5 @@
 import { createPost } from "@/actions/actions";
+import { clerkClient } from "@clerk/nextjs/server";
 import PostCounter from "../components/PostCounter";
 import { currentUser } from "@clerk/nextjs/server";
 import { AvatarFromUrl } from "../posts/AvatarFromUrl"; // ✅ import this instead of UserAvatar
