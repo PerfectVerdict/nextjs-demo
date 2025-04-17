@@ -26,7 +26,13 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
       createdAt: "desc",
     },
   });
+  console.log(
+    "Clerk frontend API:",
+    process.env.NEXT_PUBLIC_CLERK_FRONTEND_API
+  );
+
   const postsCount = await prisma.post.count();
+  console.log(user);
 
   return (
     <main className="min-h-screen w-full p-4">
