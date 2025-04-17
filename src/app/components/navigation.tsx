@@ -12,18 +12,20 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
       </h1>
 
       <span className="justify-center items-center p-4 font-semibold">
-        Posts: {postsCount}
+        {/* Posts: {postsCount} */}
         <SignedOut>
           <p className="text-sm text-gray-500">Sign in to create a post ✍️</p>
         </SignedOut>
       </span>
       <nav className="flex justify-center items-center p-4">
-        <Link
-          href="/posts"
-          className={pathname === "/posts" ? "font-bold mr-4" : "mr-4"}
-        >
-          posts
-        </Link>
+        <SignedIn>
+          <Link
+            href="/posts"
+            className={pathname === "/posts" ? "font-bold mr-4" : "mr-4"}
+          >
+            posts
+          </Link>
+        </SignedIn>
 
         <SignedOut>
           <SignInButton mode="modal" />

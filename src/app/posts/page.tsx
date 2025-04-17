@@ -8,21 +8,7 @@ import Link from "next/link";
 // const user = await currentUser();
 export default async function PostsPage({ userImage }: { userImage: string }) {
   const user = await currentUser(); // ✅ will be null if not signed in
-
   const posts = await prisma.post.findMany({
-    // include: {
-    //   author: {
-    //     select: {
-    //       imageUrl: true,
-    //       // username: true,
-    //     },
-    //   },
-    //   postImageFromUser: {
-    //     select: {
-    //       imageUrl: true,
-    //     },
-    //   },
-    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -31,22 +17,27 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
     "Clerk frontend API:",
     process.env.NEXT_PUBLIC_CLERK_FRONTEND_API
   );
-
   const postsCount = await prisma.post.count();
   console.log(user);
-
   // TODO: handle dynamic usernames  and images from profiles.
   return (
-    <main className="min-h-screen w-full p-4">
+    <main className="min-h-screen w-full">
       <div className="max-w-6xl mx-auto">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
           {posts.map((post) => (
             <li key={post.id} className="border rounded-md text-left">
               <Link
                 href={`/posts/${post.slug}`}
-                className="flex flex-col gap-4 p-4"
+                className="flex flex-col gap-1 p-2"
               >
-                <img className="p-10" src={user.imageUrl} /> {post.content}
+                <div className="flex flex-row p-4 items-center gap-4">
+                  <img
+                    src={user.imageUrl}
+                    className="w-15 h-15 rounded-full object-cover"
+                  />{" "}
+                  <p className="text-lg">{user.username}</p>
+                </div>
+                {post.content}
               </Link>
             </li>
           ))}

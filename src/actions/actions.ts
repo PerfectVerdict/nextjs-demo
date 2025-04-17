@@ -44,6 +44,8 @@ export async function createPost(formData: FormData) {
           .toLowerCase(),
         content: formData.get("content") as string,
         authorClerkId: userId,
+        authorName: username || "", // ✅ cache username in post
+        authorImage: imageUrl || "", // ✅ cache image in post
       },
     });
 
