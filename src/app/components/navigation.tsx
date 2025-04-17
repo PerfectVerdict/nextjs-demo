@@ -13,13 +13,16 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
 
       <span className="justify-center items-center p-4 font-semibold">
         Posts: {postsCount}
+        <SignedOut>
+          <p className="text-sm text-gray-500">Sign in to create a post ✍️</p>
+        </SignedOut>
       </span>
       <nav className="flex justify-center items-center p-4">
         <Link
-          href="/"
-          className={pathname === "/" ? "font-bold mr-4" : "text-blue-500 mr-4"}
+          href="/posts"
+          className={pathname === "/posts" ? "font-bold mr-4" : "mr-4"}
         >
-          home
+          posts
         </Link>
 
         <SignedOut>
