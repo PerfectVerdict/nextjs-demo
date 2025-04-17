@@ -3,6 +3,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/navigation";
+import PostCounter from "./components/PostCounter";
+import { prisma } from "@/lib/db"; // or wherever your prisma client is located
 
 const postsCount = await prisma.post.count();
 
