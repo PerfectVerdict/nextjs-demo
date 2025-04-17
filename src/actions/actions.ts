@@ -10,6 +10,7 @@ export async function createPost(formData: FormData) {
   const user = await currentUser();
   const username = user?.username;
   const firstName = user?.firstName;
+  const imageUrl = user.imageUrl;
   // if (!user) {
   //   throw new Error("Not authenticated");
   // }
