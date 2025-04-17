@@ -8,21 +8,7 @@ import Link from "next/link";
 // const user = await currentUser();
 export default async function PostsPage({ userImage }: { userImage: string }) {
   const user = await currentUser(); // ✅ will be null if not signed in
-
   const posts = await prisma.post.findMany({
-    // include: {
-    //   author: {
-    //     select: {
-    //       imageUrl: true,
-    //       // username: true,
-    //     },
-    //   },
-    //   postImageFromUser: {
-    //     select: {
-    //       imageUrl: true,
-    //     },
-    //   },
-    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -31,10 +17,8 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
     "Clerk frontend API:",
     process.env.NEXT_PUBLIC_CLERK_FRONTEND_API
   );
-
   const postsCount = await prisma.post.count();
   console.log(user);
-
   // TODO: handle dynamic usernames  and images from profiles.
   return (
     <main className="min-h-screen w-full">
