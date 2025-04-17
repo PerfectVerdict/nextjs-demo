@@ -34,14 +34,19 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const postsCount = await prisma.post.count();
   console.log(user);
 
+  // TODO: handle dynamic usernames  and images from profiles.
   return (
     <main className="min-h-screen w-full p-4">
       <div className="max-w-6xl mx-auto">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
           {posts.map((post) => (
-            <li key={post.id} className="border rounded-md p-4 text-left">
-              <Link href={`/posts/${post.slug}`}>
-                <AvatarFromUrl src={post.author?.imageUrl} /> {post.content}
+            <li key={post.id} className="border rounded-md text-left">
+              <Link
+                href={`/posts/${post.slug}`}
+                className="flex flex-col gap-4 p-4"
+              >
+                <AvatarFromUrl className="p-10" src={post.author?.imageUrl} />{" "}
+                {post.content}
               </Link>
             </li>
           ))}
