@@ -25,7 +25,7 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
         </SignedIn>
 
         <SignedOut>
-          <SignInButton mode="modal" redirectUrl="/posts" />
+          <SignInButton redirectUrl="/posts" />
         </SignedOut>
 
         <SignedIn>
