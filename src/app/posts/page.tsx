@@ -53,22 +53,22 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
           {posts.map((post) => (
             <li
               key={post.id}
-              className="border rounded-md text-center relative"
+              className="border rounded-md text-center relative text-center"
             >
               <Link
                 href={`/posts/${post.slug}`}
                 className="flex flex-col gap-1 p-2"
               >
-                <div className="flex flex-row p-4 items-center gap-4">
-                  <img
-                    src={user?.imageUrl || ""}
-                    className="w-15 h-15 rounded-full object-cover"
-                  />
-                  <p className="text-sm absolute top-2 right-2 text-gray-600">
-                    {user?.username}
+                <div className="flex flex-row p-2 items-center gap-4">
+                  <p className="text-base absolute bottom-4 right-2 text-gray-600">
+                    ~ {user?.username}
                   </p>
                 </div>
                 {post.content}
+                <img
+                  src={user?.imageUrl || ""}
+                  className="w-15 h-15 rounded-full object-cover"
+                />
               </Link>
             </li>
           ))}

@@ -1,22 +1,16 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
+import { currentUser } from "@clerk/nextjs/server";
 import { unstable_cache as cache } from "next/cache";
 interface PostPageProps {
   params: {
     slug: string;
   };
 }
-// const getCashedPost = cache((slug) => {
-//   return prisma.post.findUnique({
-//     where: {
-//       slug,
-//     },
-//     cacheStrategy: { ttl: 60 },
-//   });
-// });
 
 export default async function PostPage({ params }: PostPageProps) {
   // const post = await prisma.User.findUnique({
+  const user = await currentUser(); // ✅ will be null if not signed in
   const post = await prisma.post.findUnique({
     // options for reading specific data.
     // Including:
@@ -35,9 +29,16 @@ export default async function PostPage({ params }: PostPageProps) {
   // }
 
   return (
-    <main className="flex flex-col h-screen items-center gap-y-5 text-center">
-      <p className="text-2xl">{post.title}</p>
-      <p>{post.content}</p>
-    </main>
+    <>
+      <div className="max-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
+        <div className="flex flex-row p-5 items-center gap-6">
+          <p className="text-5xl">{post.title}</p>
+          <p className="text-sm  bottom-4 right-2 absolute text-gray-600">
+            {user?.username}
+          </p>
+        </div>
+        {post.content}
+      </div>
+    </>
   );
 }

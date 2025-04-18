@@ -6,12 +6,12 @@ import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 export const Navigation = ({ postsCount }: { postsCount: number }) => {
   const pathname = usePathname();
   return (
-    <div className="flex flex-row items-center justify-between px-6 py-4">
+    <div className="flex flex-row items-center justify-evenly px-6 py-4">
       {/* Left side (could be logo or blank spacer if needed) */}
       <div className="flex-1"></div>
 
       {/* Centered title */}
-      <h1 className="text-2xl font-bold text-center">Hub of Wisdom</h1>
+      <h1 className="text-2xl font-bold text-center mr-10">Hub of Wisdom</h1>
 
       {/* Right side - nav buttons */}
       <nav className="flex-1 flex justify-end items-center space-x-4">
