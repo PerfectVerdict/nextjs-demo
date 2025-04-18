@@ -11,24 +11,15 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
 
       {/* Centered title */}
 
-      <Link href="/" className="text-2xl font-bold text-center ml-[-15px]">
-        Hub of Wisdom
+      <Link href="/" className="text-2xl text-center ml-[-15px]">
+        🎉 Hub of Wisdom 🎉
       </Link>
 
       {/* Right side - nav buttons */}
       <nav className="flex justify-end items-center space-x-4">
         <SignedIn>
-          <Link
-            href="/posts"
-            className={pathname === "/posts" ? "font-bold mr-2" : "mr-2"}
-          >
+          <Link href="/posts" className={pathname === "/posts"}>
             posts
-          </Link>
-          <Link
-            href="/"
-            className={pathname === "/" ? "font-bold mr-2" : "mr-2"}
-          >
-            home
           </Link>
         </SignedIn>
 

@@ -21,7 +21,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   console.log(user);
   // TODO: handle dynamic usernames  and images from profiles.
   return (
-    <main className="min-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
+    <main className="max-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
       <div className="max-w-6xl mx-auto w-full">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
           {user && (
@@ -49,7 +49,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
               </button>
             </form>
           )}
-
+          {/* TODO: The images and usernames can not be absolute, they will stop respecting the post content*/}
           {posts.map((post) => (
             <li
               key={post.id}
@@ -57,23 +57,24 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
             >
               <Link
                 href={`/posts/${post.slug}`}
-                className="flex flex-col h-full relative p-4"
+                className="flex flex-col h-full relative"
               >
-                {post.content}
-                <div className="absolute bottom-2 left-2 flex items-center gap-2">
+                <div className="pl-4 pt-4">{post.content}</div>
+                <div className="flex items-center gap-2 mt-5 ">
                   <img
                     src={user?.imageUrl || ""}
                     className="w-16 h-16 rounded-full object-cover"
                   />
                   <p className="text-base text-gray-600">{user?.username}</p>
-
-                  <p className="text-base text-gray-600">{post.title}</p>
                 </div>
               </Link>
             </li>
           ))}
         </ul>
       </div>
+      <p className="text-sm  bottom-4 right-2 absolute text-gray-600">
+        {user?.username}
+      </p>
     </main>
   );
 }
