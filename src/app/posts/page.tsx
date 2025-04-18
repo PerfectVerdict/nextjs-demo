@@ -21,7 +21,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   console.log(user);
   // TODO: handle dynamic usernames  and images from profiles.
   return (
-    <main className="min-h-screen w-full flex flex-col items-center gap-2 p-4">
+    <main className="min-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
       <div className="max-w-6xl mx-auto w-full">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
           {user && (
@@ -37,7 +37,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
               />
               <textarea
                 name="content"
-                rows={3}
+                rows={2}
                 placeholder="Content"
                 className="px-2 py-1 rounded-sm border"
               />
@@ -51,7 +51,10 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
           )}
 
           {posts.map((post) => (
-            <li key={post.id} className="border rounded-md text-left">
+            <li
+              key={post.id}
+              className="border rounded-md text-center relative"
+            >
               <Link
                 href={`/posts/${post.slug}`}
                 className="flex flex-col gap-1 p-2"
@@ -61,7 +64,9 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
                     src={user?.imageUrl || ""}
                     className="w-15 h-15 rounded-full object-cover"
                   />
-                  <p className="text-lg">{user?.username}</p>
+                  <p className="text-sm absolute top-2 right-2 text-gray-600">
+                    {user?.username}
+                  </p>
                 </div>
                 {post.content}
               </Link>
