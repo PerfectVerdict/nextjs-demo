@@ -20,6 +20,8 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
   const postsCount = await prisma.post.count();
   console.log(user);
   // TODO: handle dynamic usernames  and images from profiles.
+
+  // TODO: the avatars in the posts (and uernames) are not positioned equally across each post.
   return (
     <main className="max-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
       <div className="max-w-6xl mx-auto w-full">
@@ -49,7 +51,6 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
               </button>
             </form>
           )}
-          {/* TODO: The images and usernames can not be absolute, they will stop respecting the post content*/}
           {posts.map((post) => (
             <li
               key={post.id}
