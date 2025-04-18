@@ -8,19 +8,27 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
   return (
     <div className="flex flex-row items-center justify-evenly px-6 py-4">
       {/* Left side (could be logo or blank spacer if needed) */}
-      <div className="flex-1"></div>
 
       {/* Centered title */}
-      <h1 className="text-2xl font-bold text-center mr-10">Hub of Wisdom</h1>
+
+      <Link href="/" className="text-2xl font-bold text-center ml-[-15px]">
+        Hub of Wisdom
+      </Link>
 
       {/* Right side - nav buttons */}
-      <nav className="flex-1 flex justify-end items-center space-x-4">
+      <nav className="flex justify-end items-center space-x-4">
         <SignedIn>
           <Link
             href="/posts"
             className={pathname === "/posts" ? "font-bold mr-2" : "mr-2"}
           >
             posts
+          </Link>
+          <Link
+            href="/"
+            className={pathname === "/" ? "font-bold mr-2" : "mr-2"}
+          >
+            home
           </Link>
         </SignedIn>
 
