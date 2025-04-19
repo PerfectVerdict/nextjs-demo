@@ -30,9 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-        >
+        <body className={`${geistSans.variable} ${geistMono.variable} `}>
           <header className="text-white text-center">
             <NavigationWrapper />
           </header>
