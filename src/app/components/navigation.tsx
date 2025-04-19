@@ -13,7 +13,7 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
 
       <Link
         href="/"
-        className="sm:mb-0 text-2xl text-center ml-[-15px] text-purple-400"
+        className="text-purple-400 sm:mb-0 text-2xl text-center ml-[-15px] "
       >
         🎉 Hub of Wisdom 🎉
       </Link>
@@ -33,7 +33,7 @@ export const Navigation = ({ postsCount }: { postsCount: number }) => {
         </SignedIn>
 
         <SignedOut>
-          <SignInButton redirectUrl="/posts" />
+          <SignInButton mode="redirect" redirectUrl="/posts" />
         </SignedOut>
 
         <SignedIn>
