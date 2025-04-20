@@ -23,7 +23,7 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
 
   // TODO: the avatars in the posts (and uernames) are not positioned equally across each post.
   return (
-    <main className="max-h-screen w-full flex flex-col items-center gap-2 p-4 text-center">
+    <main className="min-h-screen w-full flex h-full flex-col items-center gap-2 p-4 text-center">
       <div className="max-w-6xl mx-auto w-full">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-1">
           {user && (
@@ -31,15 +31,15 @@ export default async function PostsPage({ userImage }: { userImage: string }) {
               action={createPost}
               className="flex flex-col gap-y-2 border p-2 rounded shadow"
             >
-              <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                className="px-2 py-1 rounded-sm border"
-              />
+              {/* <input */}
+              {/*   type="text" */}
+              {/*   name="title" */}
+              {/*   placeholder="Title" */}
+              {/*   className="px-2 py-1 rounded-sm border" */}
+              {/* /> */}
               <textarea
                 name="content"
-                rows={2}
+                rows={5}
                 placeholder="Content"
                 className="px-2 py-1 rounded-sm border"
               />

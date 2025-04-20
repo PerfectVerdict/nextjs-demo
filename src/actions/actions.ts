@@ -11,9 +11,9 @@ export async function createPost(formData: FormData) {
   const username = user?.username;
   const firstName = user?.firstName;
   const imageUrl = user.imageUrl;
-  // if (!user) {
-  //   throw new Error("Not authenticated");
-  // }
+  if (!user) {
+    throw new Error("Not authenticated");
+  }
 
   const { id: userId, emailAddresses } = user;
 
@@ -33,23 +33,31 @@ export async function createPost(formData: FormData) {
       },
     });
   }
-
   // Step 3: Create the post
   try {
+    const title = (formData.get("title") as string) || "";
+    const content = (formData.get("content") as string) || "";
+
+    // If no title, fall back to content for slug (first 30 characters)
+    const slugBase = title || content.slice(0, 30);
+    const slug = slugBase
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-zA-Z0-9\-]/g, "") // optional: remove weird chars
+      .toLowerCase();
+
     await prisma.post.create({
       data: {
-        title: formData.get("title") as string,
-        slug: (formData.get("title") as string)
-          .replace(/\s+/g, "-")
-          .toLowerCase(),
-        content: formData.get("content") as string,
+        title, // optional field now
+        slug,
+        content,
         authorClerkId: userId,
         authorName: username || "", // ✅ cache username in post
         authorImage: imageUrl || "", // ✅ cache image in post
       },
     });
 
-    revalidatePath("/posts"); // optional: for static site revalidation
+    revalidatePath("/posts"); // ✅ revalidate static page cache
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -63,53 +71,3 @@ export async function createPost(formData: FormData) {
     }
   }
 }
-// export async function createPost(formData: FormData) {
-//   console.log("✅ createPost called");
-//
-//       let user = await prisma.user.findUnique({ where: { clerkId: userId } });
-// if (!user) {
-//   user = await prisma.user.create({
-//     data: { clerkId: userId, email: clerkUser.emailAddresses[0]?.emailAddress },
-//   });
-//   try {
-//     await prisma.post.create({
-// }
-//       data: {
-//         title: formData.get("title") as string,
-//         slug: (formData.get("title") as string)
-//           .replace(/\s+/g, "-")
-//           .toLowerCase(),
-//         content: formData.get("content") as string,
-//         // author: {
-//         //   connect: {
-//         //     email: "john@gmail.com",
-//         //   },
-//         // },
-//       },
-//     });
-//     revalidatePath("/posts"); // 👈 👈 this is the fix
-//   } catch (error) {
-//     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-//       if (error.code === "P2002") {
-//         console.log(
-//           "There is a unqie constraint violation, a new user cannot be created with this email"
-//         );
-//       }
-//     }
-//   }
-// }
-// export async function editPost(formData: FormData) {
-//   await prisma.post.update({
-//     data: {
-//       title: formData.get("title") as string,
-//       slug: (formData.get("title") as string)
-//         .replace(/\s+/g, "-")
-//         .toLowerCase(),
-//       content: formData.get("content") as string,
-//     },
-//   });
-// }
-//
-// export async function deletePost(id: number) {
-//   await prisma.post.delete({ where: { id } });
-// }
